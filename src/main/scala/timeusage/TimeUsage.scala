@@ -107,9 +107,11 @@ object TimeUsage {
     *    “t10”, “t12”, “t13”, “t14”, “t15”, “t16” and “t18” (those which are not part of the previous groups only).
     */
   def classifiedColumns(columnNames: List[String]): (List[Column], List[Column], List[Column]) = {
+    //    [Observed Error] Set(t1112, t180101, t050102, t0301, t050101, t180301) did not equal Set(t1112, t180101, t0102, t0301, t010101, t180301)
+
     val primaryNeeds = columnNames.partition{
       column => (
-          column.startsWith("t05") ||
+          column.startsWith("t01") ||
           column.startsWith("t03") ||
           column.startsWith("t11") ||
           column.startsWith("t1801") ||
@@ -119,7 +121,7 @@ object TimeUsage {
 
     val workingActivities = columnNames.partition{
       column => (
-          column.startsWith("t01") ||
+          column.startsWith("t05") ||
           column.startsWith("t1805")
         )
     } ._1.map(x => column(x))
